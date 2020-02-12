@@ -14,5 +14,8 @@ This repository contains the codes that were developed for the manuscript - "PAN
       5. Now, right-click the MR mask, in the "Basic Info" dialog box, change the modality to "MRI". This is very important for reading in the volumes back to MATLAB.
       6. Do the same for the brain mask.
       7. To export the aligned masks, Go to "File"->"Export Data set", in the export option - click "Resliced orientation", change the voxel size to exactly match the PET voxel size (critical!). And choose the export format as "DICOM via DCMTK", nothing else (don't be adventurous)
+      8. Copy paste in their respective MR masks and Brain masks folder. 
+
+* performPandaMoco.m has a patch, which handles the rotated AMIDE dicom images.
      
     
