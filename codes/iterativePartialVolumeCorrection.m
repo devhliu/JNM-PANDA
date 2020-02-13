@@ -5,7 +5,7 @@ function [ipvcOutputs] = iterativePartialVolumeCorrection(iPVCinputs)
 numberOfThresholds        =    10;                                         % Define the number of thresholds for otsu thresholding (the number 20 is basically chosen in a random manner)
 widthOfSE                 =    10;
 plasmaInputFunction       =    iPVCinputs.plasmaInputFunction;
-toleranceLevel            =    1;
+toleranceLevel            =    3;
 
 %% Local-variable pass for preventing parallel computing overhead
 

@@ -87,8 +87,8 @@ CoregInputs.Interp=0;
 CoregInputs.Prefix='Ref_';
 %Coregistration_job(CoregInputs);
 cd(pathOfPandaMask)
-%rotatedMask=dir('Ref*nii');
-%movefile(rotatedMask.name,'MR-mask-25.nii');
+rotatedMask=dir('Ref*nii');
+movefile(rotatedMask.name,'MR-mask-25.nii');
 oldFileName='MR-mask-25.nii';
 for lp=1:25
     newFileName=['MR-mask-',num2str(lp),'.nii'];
@@ -100,10 +100,10 @@ end
 
 CoregInputs.SourceImgPath=[pathOfPandaMR,filesep,mrImg];
 CoregInputs.MaskImgPath={[pathOfPandaBrain,filesep,brain]};
-%Coregistration_job(CoregInputs)
+Coregistration_job(CoregInputs)
 cd(pathOfPandaBrain)
-%rotatedMask=dir('Ref*nii');
-%movefile(rotatedMask.name,'Brain-25.nii');
+rotatedMask=dir('Ref*nii');
+movefile(rotatedMask.name,'Brain-25.nii');
 oldFileName='Brain-25.nii';
 for lp=1:25
     newFileName=['Brain-',num2str(lp),'.nii'];
@@ -138,4 +138,28 @@ end
         movefile(oldFile.name,['Brain-',num2str(lp),'.nii']);
     end
 
+
+
+function [] = makeNiftyCompatible(pathOfAmideDicom,niftyFileName)
+       cd(pathOfAmideDicom);
+       amideToMatlab(pathOfAmideDicom) % add .ima extension
+       alignedVolume=readImages(cd,'align');
+       niftyVolume=rot90(alignedVolume.volumes,-2);
+       convertDicomtoNii(cd,cd)
+       niftyFile=dir('*nii');
+       movefile(niftyFile.name,niftyFileName);
+       headerInfo=spm_vol(niftyFileName);
+       headerInfo.mat(:,2)=abs(headerInfo.mat(:,2));
+       headerInfo.mat(:,3)=-(headerInfo.mat(:,3));
+       headerInfo.mat(:,4)=abs(headerInfo.mat(:,4));
+       headerInfo.private.mat=headerInfo.mat;
+       headerInfo.private.mat0=headerInfo.mat;
+       headerInfo.pinfo=[1 0 352]';
+       headerInfo.private.dat.dtype='UINT16-LE';
+       headerInfo.private.dat.scl_slope=1;
+       headerInfo.dt=[512 0];
+       spm_write_vol(headerInfo,niftyVolume);
 end
+       
+
+
