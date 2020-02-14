@@ -117,7 +117,7 @@ end
 
     pathOfPandaNav=ppmInputs.pathOfPandaNavigators;
     cd(pathOfPandaNav)
-    pandaFiles=dir('*nii');
+    pandaFiles=dir('P*nii');
     for lp=1:length(pandaFiles)
         pandaNav{lp,:}=pandaFiles(lp).name;
     end
@@ -129,7 +129,7 @@ end
         CoregInputs.MaskImgPath{2,:}=[pathOfPandaBrain,filesep,'Brain-25.nii'];
         CoregInputs.Interp=0;
         CoregInputs.Prefix='Moved-';
-        Coregistration_job(CoregInputs);
+        panda_coregistration_job(CoregInputs);
         cd(pathOfPandaMask)
         oldFile=dir('Moved*');
         movefile(oldFile.name,['MR-mask-',num2str(lp),'.nii']);
