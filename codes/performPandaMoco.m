@@ -29,7 +29,7 @@ function []=performPandaMoco(ppmInputs)
 
 highResTOFname='TOF_MRA.nii';
 highResMask='Native_MR_mask.nii';
-referenceImg='PANDA-25.nii';
+referenceImg='PANDA-27.nii';
 pandaFolder='PANDA-Analysis';
 mrImg='T1_MR.nii';
 brain='Brain-mask.nii';
@@ -89,8 +89,8 @@ CoregInputs.Prefix='Ref_';
 cd(pathOfPandaMask)
 %rotatedMask=dir('Ref*nii');
 %movefile(rotatedMask.name,'MR-mask-25.nii');
-oldFileName='MR-mask-25.nii';
-for lp=1:25
+oldFileName='MR-mask-27.nii';
+for lp=1:26
     newFileName=['MR-mask-',num2str(lp),'.nii'];
     copyfile(oldFileName,newFileName);
     oldFileName=newFileName;
@@ -104,8 +104,8 @@ CoregInputs.MaskImgPath={[pathOfPandaBrain,filesep,brain]};
 cd(pathOfPandaBrain)
 %rotatedMask=dir('Ref*nii');
 %movefile(rotatedMask.name,'Brain-25.nii');
-oldFileName='Brain-25.nii';
-for lp=1:25
+oldFileName='Brain-27.nii';
+for lp=1:26
     newFileName=['Brain-',num2str(lp),'.nii'];
     copyfile(oldFileName,newFileName);
     oldFileName=newFileName;
@@ -115,27 +115,32 @@ end
 % If the alignment between the TOF-MRA (moving) and the PANDA-25
 % (reference) is perfect then proceed with further alignments
 
-    pathOfPandaNav=ppmInputs.pathOfPandaNavigators;
-    cd(pathOfPandaNav)
-    pandaFiles=dir('P*nii');
-    for lp=1:length(pandaFiles)
-        pandaNav{lp,:}=pandaFiles(lp).name;
-    end
-    sortedPanda=natsort(pandaNav);
-    CoregInputs.SourceImgPath=[pathOfPandaRefImg,filesep,referenceImg]; % after the first time, the reference img becomes the source image, refer the paper. (panda-25)
-    for lp=26:length(sortedPanda)
-        CoregInputs.RefImgPath=[pathOfPandaNav,filesep,sortedPanda{lp,:}];
-        CoregInputs.MaskImgPath{1,:}=[pathOfPandaMask,filesep,'MR-mask-25.nii'];
-        CoregInputs.MaskImgPath{2,:}=[pathOfPandaBrain,filesep,'Brain-25.nii'];
-        CoregInputs.Interp=0;
-        CoregInputs.Prefix='Moved-';
-        panda_coregistration_job(CoregInputs);
-        cd(pathOfPandaMask)
-        oldFile=dir('Moved*');
-        movefile(oldFile.name,['MR-mask-',num2str(lp),'.nii']);
-        cd(pathOfPandaBrain)
-        oldFile=dir('Moved*');
-        movefile(oldFile.name,['Brain-',num2str(lp),'.nii']);
-    end
+pathOfPandaNav=ppmInputs.pathOfPandaNavigators;
+cd(pathOfPandaNav)
+pandaFiles=dir('P*nii');
+for lp=1:length(pandaFiles)
+    pandaNav{lp,:}=pandaFiles(lp).name;
+end
+sortedPanda=natsort(pandaNav);
+
+
+
+parfor lp=27:length(sortedPanda)
+   CoregInputs = struct();
+   CoregInputs.SourceImgPath=[pathOfPandaRefImg,filesep,referenceImg]; % after the first time, the reference img becomes the source image, refer the paper. (panda-25)
+   CoregInputs.MaskImgPath{1,:}=[pathOfPandaMask,filesep,'MR-mask-27.nii'];
+   CoregInputs.MaskImgPath{2,:}=[pathOfPandaBrain,filesep,'Brain-27.nii'];
+   CoregInputs.Interp=0;
+   CoregInputs.Prefix=['Moved-',num2str(lp),'-'];
+   CoregInputs.RefImgPath=[pathOfPandaNav,filesep,sortedPanda{lp,:}];
+   panda_coregistration_job(CoregInputs);
+   cd(pathOfPandaMask)
+   oldFile=dir(['Moved-',num2str(lp),'-*']);
+   movefile(oldFile.name,['MR-mask-',num2str(lp),'.nii']);
+   cd(pathOfPandaBrain)
+   oldFile=dir(['Moved-',num2str(lp),'-*']);
+   movefile(oldFile.name,['Brain-',num2str(lp),'.nii']);
+end
+
 
 end

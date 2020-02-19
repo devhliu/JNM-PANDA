@@ -1,5 +1,5 @@
-subjectID={'HC014 test'};
-shortID={'HC014_m1'};
+subjectID={'HC006 test'};
+shortID={'HC006_m1'};
 pathOfAIF='/Users/lalithsimac/Documents/Input functions/Arterial input functions';% arterial input function
 
 for lp=1:length(subjectID)
