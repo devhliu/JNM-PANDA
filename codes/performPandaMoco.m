@@ -89,8 +89,8 @@ CoregInputs.Prefix='Ref_';
 cd(pathOfPandaMask)
 %rotatedMask=dir('Ref*nii');
 %movefile(rotatedMask.name,'MR-mask-25.nii');
-oldFileName='MR-mask-26.nii';
-for lp=1:26
+oldFileName='MR-mask-25.nii';
+for lp=1:24
     newFileName=['MR-mask-',num2str(lp),'.nii'];
     copyfile(oldFileName,newFileName);
     oldFileName=newFileName;
