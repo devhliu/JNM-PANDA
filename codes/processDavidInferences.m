@@ -1,4 +1,4 @@
-frameNum='32';
+frameNum='25';
 subjectID={'HC002 test','HC002 retest','HC003 test','HC003 retest','HC004 test','HC004 retest','HC006 test','HC006 retest','HC007 test','HC007 retest','HC009 retest','HC010 test','HC010 retest','HC012 test','HC012 retest','HC013 test','HC013 retest','HC014 test','HC014 retest'};
 motherFolder=cd;
 h = cProgress ( 0, 'Reading images');

@@ -408,7 +408,7 @@ text(PETframingMidPoint,(rotAlignedIDIF(round(PETframingMidPoint))+2),num2str(fr
 title([iPVCinputs.subjectID,': The similarity ratio is ',num2str(rAUC), 'Mask_1: ',num2str(rAUC_1),' Mask_2: ',num2str(rAUC_2),'!'],'FontSize',20);
 set(gcf,'position',get(0,'ScreenSize')) % expand figure to whole screen;
 cd(iPVCinputs.whereToProcess);
-saveas(gcf,[iPVCinputs.AC,iPVCinputs.subjectID,'PANDA_IDIF_AIF','.png']);
+saveas(gcf,[iPVCinputs.AC,iPVCinputs.subjectID,'PANDA_IDIF_AIF_26','.png']);
 IDIFtxtCreator(time,alignedIDIF(time),[iPVCinputs.AC,iPVCinputs.subjectID ,'_Aligned_IDIF']);
 delayPoints=-delayPoints; % change the sign for matching the AIF to IDIF
 modTime=(time+delayPoints);
@@ -417,9 +417,9 @@ IDIFtxtCreator(modTime,interpAIF,[iPVCinputs.AC,iPVCinputs.subjectID,'_DC_AIF'])
 title([iPVCinputs.subjectID],'FontSize',20);
 set(gcf,'position',get(0,'ScreenSize')) % expand figure to whole screen;
 cd(iPVCinputs.whereToProcess);
-IDIFtxtCreator(time,postProcessedIDIF,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_native_IDIF']);
-IDIFtxtCreator(time,postProceesedIDIF_1,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_mask_1_IDIF']);
-IDIFtxtCreator(time,postProceesedIDIF_2,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_mask_2_IDIF']);
+IDIFtxtCreator(time,postProcessedIDIF,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_native_IDIF_26']);
+IDIFtxtCreator(time,postProceesedIDIF_1,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_mask_1_26_IDIF']);
+IDIFtxtCreator(time,postProceesedIDIF_2,[iPVCinputs.AC,iPVCinputs.subjectID,'_PANDA_mask_2_26_IDIF']);
 %IDIFtxtCreator(PETframingMidPoint,arteryTAC,[PVC.AC,'_No_MoCo_',PVC.subjectID,'_RAW_IDIF']);
 %save('Artery_values',arteryTAC);
 %% // to uncomment

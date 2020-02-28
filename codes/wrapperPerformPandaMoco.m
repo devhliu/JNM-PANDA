@@ -1,4 +1,4 @@
-subjectID={'HC006 retest'};
+subjectID={'HC014 retest'};
 for lp=1:length(subjectID)
     ppmInputs.pathOfPandaNavigators=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/PANDA-JNM/PET-navigators'];
     ppmInputs.pathToTOF=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/MoCo/Nifti working folder/MR MoCo/MoCo_TOF_MRA'];

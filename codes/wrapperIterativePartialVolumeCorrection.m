@@ -1,12 +1,12 @@
-subjectID={'HC006 retest'};
-shortID={'HC006_m2'};
+subjectID={'HC013 retest'};
+shortID={'HC013_m2'};
 pathOfAIF='/Users/lalithsimac/Documents/Input functions/Arterial input functions';% arterial input function
 
 for lp=1:length(subjectID)
     iPVCinputs.AC='CT_'
     iPVCinputs.pathOfPET=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/Reconstructed PET/Nifti_MoCo_Recons_PET_CT'];
-    iPVCinputs.pathOfAlignedMRmasks=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/PANDA-Analysis/MR-masks'];
-    iPVCinputs.pathOfAlignedBrainMasks=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/PANDA-Analysis/Brain-masks'];
+    iPVCinputs.pathOfAlignedMRmasks=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/PANDA-Analysis-Ref-26/MR-masks'];
+    iPVCinputs.pathOfAlignedBrainMasks=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp},'/Processed data/PANDA-Analysis-Ref-26/Brain-masks'];
     iPVCinputs.psfFWHM=5;
     iPVCinputs.whereToProcess=['/Volumes/p_Epilepsy/Andy playground/',subjectID{lp}];
     iPVCinputs.p2bRatio = getP2Bratio(shortID{lp});
